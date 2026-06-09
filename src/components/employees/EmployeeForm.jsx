@@ -15,9 +15,9 @@ import { cn } from "@/lib/utils";
 
 /* ── schema ── */
 const createSchema = z.object({
-    name:        z.string().min(2,  "Full name is required"),
+    name: z.string().min(2, "Full name is required").regex(/^[A-Za-z\s'-]+$/, "Name cannot contain numbers or special characters"),
     email:       z.string().email("Valid email is required"),
-    phone:       z.string().optional(),
+    phone: z.string().optional().or(z.literal("")).refine(val => val === "" || /^\d{9,15}$/.test(val), { message: "Phone number must be between 9 and 15 digits"}),
     password:    z.string().min(6,  "Password must be at least 6 characters"),
     role:        z.string().min(1,  "Role is required"),
     employeeId:  z.string().optional(),
@@ -225,6 +225,9 @@ export function EmployeeForm({ defaultValues, roles = [], onSave, onCancel }) {
                                 placeholder="9876543210"
                                 className="h-11 rounded-xl bg-muted/40 text-sm"
                             />
+                            {errors.phone && (
+                                <p className="text-xs text-destructive">{errors.phone.message}</p>
+                            )}
                         </div>
                         <div className="space-y-1.5">
                             <Label className="text-sm font-semibold">

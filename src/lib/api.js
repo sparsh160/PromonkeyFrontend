@@ -1,6 +1,6 @@
-export const API_BASE = "https://promonkeybackend.onrender.com";
+//export const API_BASE = "https://promonkeybackend.onrender.com";
 
-//export const API_BASE = "http://192.168.1.24:6969";
+export const API_BASE = "http://192.168.1.24:6969";
 
 export function getToken() {
     if (typeof window === "undefined") return "";

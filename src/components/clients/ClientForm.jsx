@@ -10,11 +10,11 @@ import { Label }  from "@/components/ui/label";
 import { cn } from "@/lib/utils";
 
 const schema = z.object({
-    clientName:  z.string().min(2, "Client name is required"),
+    clientName: z.string().min(1, "Client name is required").regex(/^[a-zA-Z\s]+$/, "Client name can only contain letters and spaces"),
     companyName: z.string().optional(),
     email:       z.string().email("Invalid email").optional().or(z.literal("")),
     password: z.string().min(6, "Password must be at least 6 characters").optional().or(z.literal("")),
-    phone:       z.string().optional(),
+    phone: z.string().optional().or(z.literal("")).refine((val) => !val || /^\d{9,15}$/.test(val), {message: "Phone number must be between 9 and 15 digits and contain only numbers",}),
     address:     z.string().optional(),
     notes:       z.string().optional(),
 });
@@ -192,6 +192,9 @@ export function ClientForm({ defaultValues, onSave, onCancel }) {
                         placeholder="9876543210"
                         className="h-11 rounded-xl bg-muted/40 text-sm"
                     />
+                    {errors.phone && (
+                        <p className="text-xs text-destructive">{errors.phone.message}</p>
+                    )}
                 </div>
             </div>
             <div className="space-y-1.5">

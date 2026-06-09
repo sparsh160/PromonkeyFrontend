@@ -31,6 +31,8 @@ export function useAuth() {
         // clear localStorage
         localStorage.removeItem("crm_auth_token");
         localStorage.removeItem("crm_user");
+        localStorage.removeItem("crm_employee");
+        localStorage.removeItem("crm_modules");
 
         // clear cookie so middleware also blocks access
         document.cookie = "crm_auth_token=; path=/; max-age=0; SameSite=Lax";

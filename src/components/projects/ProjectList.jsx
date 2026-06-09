@@ -130,12 +130,7 @@ export function ProjectList({ projects, onDelete, onRefetch }) {
                             <p className="text-sm font-semibold text-foreground truncate">
                                 {p.name}
                             </p>
-                            {p.description && (
-                                <p className="text-xs text-muted-foreground truncate max-w-[180px]">
-                                    {p.description.slice(0, 45)}
-                                    {p.description.length > 45 ? "…" : ""}
-                                </p>
-                            )}
+
                         </div>
                     </div>
                 );
